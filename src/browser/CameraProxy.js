@@ -93,7 +93,11 @@ function capture(success, errorCallback) {
 
     var successCallback = function(stream) {
         localMediaStream = stream;
-        video.src = window.URL.createObjectURL(localMediaStream);
+        if ('srcObject' in video) {
+            video.srcObject = localMediaStream;
+        } else {
+            video.src = window.URL.createObjectURL(localMediaStream);
+        }
         video.play();
 
         document.body.appendChild(parent);
